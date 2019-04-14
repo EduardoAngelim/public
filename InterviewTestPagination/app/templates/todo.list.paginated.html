@@ -1,0 +1,44 @@
+﻿<div ng-app="todoApp" ng-controller="TodoAppController">
+
+    <!-- Loader -->
+    <div ng-if="todos == null">
+        <img src="../../Content/Images/Loading.gif" class="ajax-loader" />
+    </div>
+
+
+
+
+
+    <!-- table of contents -->
+    <table>
+        
+        <!-- table: header -->
+        <tr ng-init="sort='createdDate'">
+            <th ng-click="sort='id'; reverse=!reverse">Id<span> <i ng-show="sort=='id'" ng-class="reverse ? 'fa fa-caret-up' : 'fa fa-caret-down'"></i></span></th>
+            <th ng-click="sort='task'; reverse=!reverse">Task<span> <i ng-show="sort=='task'" ng-class="reverse ? 'fa fa-caret-up' : 'fa fa-caret-down'"></i></span></th>
+            <th ng-click="sort='createdDate'; reverse=!reverse">Created Date<span> <i ng-show="sort=='createdDate'" ng-class="reverse ? 'fa fa-caret-up' : 'fa fa-caret-down'"></i></span></th>
+        </tr>
+        
+
+
+        <!-- table: content -->
+        <tr ng-repeat="todo in todos | orderBy: orderBy : reverse | limitTo: settings.pageLimit:settings.offset">
+            <td>{{todo.id}}</td>
+            <td>{{todo.task}}</td>
+            <td>{{todo.createdDate | date:'MM/dd/yyyy' }}</td>
+        </tr>
+    </table>
+
+
+
+
+
+    <!-- pagination component -->
+    <pagination current-page="settings.currentPage"
+                page-limit="settings.pageLimit"
+                offset="settings.offset"
+                page-limits="settings.pageLimits"
+                on-update="callback()"
+                total="todos.length">
+    </pagination>
+</div>

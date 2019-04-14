@@ -1,0 +1,49 @@
+﻿<div class="pagination" >
+
+
+    <div>
+
+        Items per page
+
+        <!-- select how many items should be displayed per page -->
+        <select ng-model="pageLimit" ng-init="pageLimit = '20'" ng-change="pagination.setItemsPerPages(pageLimit)">
+            <option>10</option>
+            <option selected="selected">20</option> <!-- default option on first load should be 20 -->
+            <option>30</option>
+            <option>all</option> <!-- disregard pagination: show all the items -->
+        </select>
+    </div>
+
+
+    <div>
+
+        <!-- 'go to first page' button -->
+        <button ng-click="pagination.gotoFirstPage()">&lt;&lt;</button> 
+
+
+        <!-- 'go to previous page' button: can't go lower than 1 -->
+        <button ng-click="pagination.gotoPreviousPage()" ng-disabled="pagination.currentPage <= 0">&lt;</button>
+        
+
+
+        <!-- input to select page to go to: go to page when input changes value -->
+        Page <input type="number" ng-model="pageIndex" ng-value="pagination.currentPage + 1" ng-change="pagination.gotoPage(pageIndex - 1)" min="1" /> of {{pagination.getTotalPages()}}
+
+
+
+        <!-- 'go to next page' button: can't go higher than last page number -->
+        <button ng-click="pagination.gotoNextPage()" ng-disabled="pagination.currentPage === (pagination.getTotalPages() - 1)">&gt;</button> 
+
+
+        <!-- 'go to last page' button -->
+        <button ng-click="pagination.gotoLastPage()">&gt;&gt;</button> 
+    </div>
+
+
+    <div>
+
+        <!-- total number of items -->
+        <span>{{pagination.total}} items</span> 
+
+    </div>
+</div>
